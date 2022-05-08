@@ -16,7 +16,7 @@ namespace SortList
         [Header("Input Fields"), SerializeField] private GameObject control_TextList;
         [SerializeField] private TextMeshProUGUI[] text_List;
 
-        private string[] value_List;
+        private float[] value_List;
 
         private void Start()
         {
@@ -26,9 +26,10 @@ namespace SortList
 
         private void SetComponent()
         {
-            value_List = new string[6];
+            value_List = new float[6];
             sortButton = sortButton.gameObject.GetComponent<Button>();
             textButton = textButton.gameObject.GetComponent<TextMeshProUGUI>();
+
             for (int i = 0; i < inp_Field.Length; i++)
             {
                 inp_Field[i] = inp_Field[i].gameObject.GetComponent<ControlField>();
@@ -43,36 +44,36 @@ namespace SortList
             for (int i = 0; i < value_List.Length; i++)
             {
                 value_List[i] = inp_Field[i].GetValue();
+
                 if (value_List[i].ToString() == "")
                     all = false;
             }
             return all;
         }
 
-        public bool SortList()
+        public void ShowList()
         {
             if (IsAllFull())
             {
                 Array.Sort(value_List);
                 for (int i = 0; i < value_List.Length; i++)
-                    text_List[i].text = value_List[i];
-                return true;
+                    text_List[i].text = value_List[i].ToString();
+                ChangeGUI();
             }
             else
             {
                 textButton.text = "Full All Than Press";
-                return false;
             }
         }
 
         private void ButtonClicked()
         {
             Debug.Log("Clicked");
-            if (SortList())
-                ShowList();
+            ShowList();
+               
         }
 
-        private void ShowList()
+        private void ChangeGUI()
         {
             sortButton.gameObject.SetActive(false);
             control_InputFields.gameObject.SetActive(false);

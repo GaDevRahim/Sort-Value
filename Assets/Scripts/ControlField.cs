@@ -1,21 +1,23 @@
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 namespace SortList
 {
     public class ControlField : MonoBehaviour
     {
-        private string value;
+        private float value;
         private TMP_InputField fieldText;
+        
 
         private void Start()
         {
             fieldText = GetComponent<TMP_InputField>();
         }
 
-        public string GetValue()
+        public float GetValue()
         {
-            value = fieldText.text.ToString();
+            value = float.Parse(fieldText.text.ToString());
             return value;
         }
     }
